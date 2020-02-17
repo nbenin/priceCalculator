@@ -6,9 +6,6 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
-
-        var_dump($POST);
-
         // set empty arrays to hold objects
         $customerObjects = [];
         $productObjects = [];
@@ -27,8 +24,7 @@ class HomepageController
         //var_dump($productObjects);
 
         // Make customer and product depending on the GET/POST
-
-        //you should not echo anything inside your controller - only assign vars here
+        var_dump($POST);
 
         //load the view
         require 'View/homepage.php';
