@@ -6,20 +6,29 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
-        
-        //var_dump($POST);
+
+        var_dump($POST);
+
+        // set empty arrays to hold objects
+        $customerObjects = [];
+        $productObjects = [];
+
         // Get Json files and make objects of the right customer/product
         $customerJson = json_decode(file_get_contents('jsons/customers.json'), true);
         $productsJson = json_decode(file_get_contents('jsons/products.json'), true);
-        //var_dump($productsJson);
-        //var_dump($customerJson);
 
+        foreach ($customerJson as $customers) {
+            array_push($customerObjects, new Customer($customers{'id'}, $customers{'name'}, $customers{'group_id'}));
+        }
+        foreach ($productsJson as $product) {
+            array_push($productObjects, new Product($product{'id'}, $product{'name'}, $product{'description'}, $product{'price'}));
+        }
+        //var_dump($customerObjects);
+        //var_dump($productObjects);
 
         // Make customer and product depending on the GET/POST
-        $customer = new Customer('John Smith', 1);
 
         //you should not echo anything inside your controller - only assign vars here
-        // then the view will actually display them.
 
         //load the view
         require 'View/homepage.php';

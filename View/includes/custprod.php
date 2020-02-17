@@ -8,10 +8,9 @@
 
 <label for="products">Products:</label>
 <select id="products" name="products">
-    <option value="prod1">Prod1</option>
-    <option value="prod2">Prod2</option>
-    <option value="prod3">Prod3</option>
-    <option value="prod4">Prod4</option>
+    <?php foreach($productsJson as $product) {
+        echo '<option value="' . $product{"id"} . '">' . $product{"name"} . '</option>';
+    } ?>
 </select>
 
 <button type="submit" class="btn btn-secondary btn-lg">Search</button>
