@@ -4,14 +4,14 @@ declare(strict_types = 1);
 class HomepageController
 {
     //render function with both $_GET and $_POST vars available if it would be needed.
-    public function render(array $GET, array $POST)
+    public function render(array $POST)
     {
-        
-        // Get Json files and make objects of the right customer/product
+        var_dump($POST);
+/*        // Get Json files and make objects of the right customer/product
         $customerJson = file_get_contents('jsons/customers.json');
         $productsJson = file_get_contents('jsons/products.json');
         var_dump($productsJson);
-        var_dump($customerJson);
+        var_dump($customerJson);*/
 
 
         // Make customer and product depending on the GET/POST
