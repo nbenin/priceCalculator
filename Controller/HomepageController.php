@@ -6,6 +6,7 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
+        
         //var_dump($POST);
         // Get Json files and make objects of the right customer/product
         $customerJson = json_decode(file_get_contents('jsons/customers.json'), true);
