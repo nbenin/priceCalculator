@@ -8,11 +8,17 @@
     <title>Becode - Boiler plate MVC</title>
 </head>
 <body>
+
+
     <?php require 'includes/header.php'?>
     <section>
         <h4>Hello <?php echo $user->getName()?>,</h4>
         <p>Put your content here.</p>
     </section>
+    <form method="POST">
+
+        <?php require "includes/custprod.php"?>
+    </form>
     <?php require 'includes/footer.php'?>
 </body>
 </html>
