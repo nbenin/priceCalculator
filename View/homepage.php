@@ -10,12 +10,6 @@
 <body>
     <?php require 'includes/header.php'?>
 
-    <section>
-        <h4>Hello <?php echo $customer->getName() ?>,</h4>
-        <h4>Hello <?php echo $customer->getGroupId() ?>,</h4>
-        <p>Put your content here.</p>
-    </section>
-
     <form method="POST">
         <?php require "includes/custprod.php"?>
     </form>
