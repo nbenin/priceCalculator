@@ -3,15 +3,22 @@ declare(strict_types=1);
 
 class Customer
 {
-    private $name;
+    private $customerName;
+    private $customerGroupId;
 
-    public function __construct(string $name)
+    public function __construct(string $name, int $customerGroupId)
     {
-        $this->name = $name;
+        $this->customerName = $name;
+        $this->customerGroupId = $customerGroupId;
     }
 
     public function getName() : string
     {
-        return $this->name;
+        return $this->customerName;
+    }
+
+    public function getGroupId() : int
+    {
+        return $this->customerGroupId;
     }
 }
