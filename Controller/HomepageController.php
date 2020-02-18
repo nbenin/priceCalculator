@@ -23,19 +23,23 @@ class HomepageController
             array_push($productObjects, new Product($product{'id'}, $product{'name'}, $product{'description'}, $product{'price'}));
         }
         foreach ($groupsJson as $group) {
-            // Extract to sort the discounts
-            $discount = [];
-            $variable_discount;
-            $fixed_discount;
-            extract($group);
-
-            if ($fixed_discount !== null) {
-                $discount['fixed_discount'] = $fixed_discount;
+            // Sorting discounts for object
+            $fixed_discount = 0;
+            $variable_discount = 0;
+            $groupId = 100;
+            if (isset($group{'fixed_discount'})) {
+                $fixed_discount = $group{'fixed_discount'};
             } else {
-                $discount['variable_discount'] = $variable_discount;
+                $variable_discount = $group{'variable_discount'};
+            }
+            // Case for groups without group id
+            if (!isset($group{'group_id'})) {
+                break;
+            } else {
+                $groupId = $group{'group_id'};
             }
 
-            array_push($groupObjects, new Group($group{'id'}, $group{'name'}, $discount, $group{'group_id'}));
+            array_push($groupObjects, new Group($group{'id'}, $group{'name'}, $variable_discount, $fixed_discount, $groupId));
         }
 
         // Connect the groups to each customer
