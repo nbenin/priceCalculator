@@ -6,14 +6,14 @@ class Group
     // Constructor and attributes
     private $id;
     private $name;
-    private $variable_discount;
+    private $discount;
     private $group_id;
 
-    public function __construct(int $id, string $name, int $variable_discount, int $group_id)
+    public function __construct(int $id, string $name, array $discount, int $group_id)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->variable_discount = $variable_discount;
+        $this->discount = $discount;
         $this->group_id = $group_id;
     }
 
@@ -24,8 +24,8 @@ class Group
     public function getName() : string {
         return $this->name;
     }
-    public function getDiscount() : int {
-        return $this->variable_discount;
+    public function getDiscount() : array {
+        return $this->discount;
     }
     public function getGroupId() : int {
         return $this->group_id;
