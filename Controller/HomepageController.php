@@ -6,6 +6,18 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
+
+        // Make customer and product depending on the GET/POST
+            var_dump($POST);
+
+            //load the view
+            require 'View/homepage.php';
+
+    }
+
+    public function loadObjects()
+    {
+
         // set empty arrays to hold objects
         $customerObjects = [];
         $productObjects = [];
@@ -41,16 +53,17 @@ class HomepageController
             array_push($groupObjects, new Group($group{'id'}, $group{'name'}, $variable_discount, $fixed_discount, $groupId));
         }
 
+        $_SESSION['customers'] = $customerObjects;
+        $_SESSION['products'] = $productObjects;
+        $_SESSION['groups'] = $groupObjects;
 
         // Connect the groups to each customer
-        //var_dump($groupObjects);
-        //var_dump($customerObjects);
-        //var_dump($productObjects);
-
-        // Make customer and product depending on the GET/POST
-        var_dump($POST);
-
-        //load the view
-        require 'View/homepage.php';
+        foreach($customerObjects as $customer) {
+            foreach($groupObjects as $group) {
+                if($customer->getGroupId() === $group->getId()) {
+                    $customer->addGroup($group);
+                }
+            }
+        }
     }
 }

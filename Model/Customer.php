@@ -7,6 +7,7 @@ class Customer
     private $customerId;
     private $customerName;
     private $customerGroupId;
+    private $listNode;
     private $groupsArray = [];
 
     public function __construct(int $customerId, string $name, int $customerGroupId)
@@ -26,12 +27,15 @@ class Customer
     public function getGroupId() : int {
         return $this->customerGroupId;
     }
+    public function getListNode() : int {
+        return $this->listNode;
+    }
     public function getGroupsArray() : array {
         return $this->groupsArray;
     }
 
     // Function to add groups to object
-    public function addGroups($obj) {
+    public function addGroup($obj) {
         array_push($this->groupsArray, $obj);
     }
 }

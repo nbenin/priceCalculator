@@ -1,14 +1,13 @@
 <label for="Customers"> Find Customers:</label>
 <select id="customer" name="customer">
-    <?php foreach($customerObjects as $customer) {
+    <?php foreach($_SESSION['customers'] as $customer) {
         echo '<option value="' . $customer->getId() . '">' . $customer->getName() . '</option>';
     } ?>
-
 </select>
 
 <label for="products">Products:</label>
 <select id="products" name="products">
-    <?php foreach($productObjects as $product) {
+    <?php foreach($_SESSION['products'] as $product) {
         echo '<option value="' . $product->getId() . '">' . $product->getName() . '</option>';
     } ?>
 </select>
