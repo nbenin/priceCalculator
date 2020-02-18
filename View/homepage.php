@@ -19,7 +19,9 @@
         <?php require "includes/custprod.php"?>
     </form>
 
-    <?php require 'includes/login.php' ?>
+    <form method="POST">
+        <?php require 'includes/login.php' ?>
+    </form>
     <?php require 'includes/footer.php'?>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
