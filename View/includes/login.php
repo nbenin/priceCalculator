@@ -1,23 +1,20 @@
-<form>
+<form method="post">
 
     <div class="form-group">
-        <label for="inputEmail">Name</label>
-        <input type="email" class="form-control" id="inputName" placeholder="Name">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Name">
     </div>
 
     <div class="form-group">
-        <label for="inputEmail">Email</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email">
     </div>
 
     <div class="form-group">
-        <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password">
     </div>
 
-    <div class="form-group">
-        <label class="form-check-label"><input type="checkbox"> Remember me</label>
-    </div>
     <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
 

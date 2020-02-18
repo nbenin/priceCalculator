@@ -43,7 +43,7 @@ class HomepageController
 
 
         // Connect the groups to each customer
-        var_dump($groupObjects);
+        //var_dump($groupObjects);
         //var_dump($customerObjects);
         //var_dump($productObjects);
 
