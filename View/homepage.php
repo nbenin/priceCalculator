@@ -19,6 +19,7 @@
         <?php require "includes/custprod.php"?>
     </form>
 
+    <?php require 'includes/login.php' ?>
     <?php require 'includes/footer.php'?>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>

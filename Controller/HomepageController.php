@@ -22,9 +22,9 @@ class HomepageController
         foreach ($productsJson as $product) {
             array_push($productObjects, new Product($product{'id'}, $product{'name'}, $product{'description'}, $product{'price'}));
         }
-        foreach ($groupsJson as $group) {
+/*        foreach ($groupsJson as $group) {
             array_push($groupObjects, new Group($group{'id'}, $group{'name'}, $group{'variable_discount'}, $group{'group_id'}));
-        }
+        }*/
 
         // Connect the groups to each customer
         var_dump($groupObjects);
