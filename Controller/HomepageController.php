@@ -6,9 +6,10 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
-
         // Make customer and product depending on the GET/POST
-        var_dump($POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            var_dump($POST);
+        }
 
         //load the view
         require 'View/homepage.php';
@@ -55,7 +56,6 @@ class HomepageController
                 }
             }
         }
-    var_dump($customerObjects);
         // Store objects in Session
         $_SESSION['customers'] = $customerObjects;
         $_SESSION['products'] = $productObjects;

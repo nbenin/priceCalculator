@@ -12,7 +12,7 @@ session_start();
 //this file should never be more than 20 lines of code!
 $controller = new HomepageController();
 
-if($_SERVER['REQUEST_METHOD'] == 'GET') {
+if(!isset($_SESSION)) {
     $controller->loadObjects();
 }
 $controller->render($_POST);

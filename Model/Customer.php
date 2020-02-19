@@ -26,9 +26,6 @@ class Customer
     public function getGroupId() : int {
         return $this->customerGroupId;
     }
-    public function getListNode() : int {
-        return $this->listNode;
-    }
     public function getGroupsArray() : array {
         return $this->groupsArray;
     }
