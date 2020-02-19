@@ -8,61 +8,17 @@ class HomepageController
     {
         // Make customer and product depending on the GET/POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            // getting object of chosen stuf
-            $chosenCustomer = $_SESSION["customers"][$_POST["customer"]];
-            $chosenProduct =  $_SESSION["products"][$_POST["products"]];
-
-            $chosenProductPrice = $chosenProduct->getPrice();
-            $chosenCustomerGroup = $chosenCustomer->getGroupsArray();
-
-            $fixedDiscount = [];
-            $variableDiscount = [];
-
-            foreach ($chosenCustomerGroup as $value){
-                if (isset($value{"fixed_discount"})) {
-                    array_push($fixedDiscount, $value{"fixed_discount"});
-                }
-                if(isset($value{"variable_discount"})) {
-                    array_push($variableDiscount, $value{"variable_discount"});
-                }
-            }
-            $fixedDiscount = array_sum($fixedDiscount);
-            $variableDiscount = max($variableDiscount);
-
-            var_dump($fixedDiscount);
-            var_dump($variableDiscount);
-            var_dump($chosenProductPrice);
-
-            $discountedPriceFixed = $chosenProductPrice - $fixedDiscount;
-            $discountedPriceVariable =   $chosenProductPrice - ($chosenProductPrice * ($variableDiscount / 100));
-            var_dump($discountedPriceFixed);
-            var_dump($discountedPriceVariable);
-
-
-            $bestDeal = 0;
-
-            if($discountedPriceFixed <= $discountedPriceVariable) {
-                $bestDeal = $discountedPriceFixed;
-
-            } else {
-                $bestDeal = $discountedPriceVariable;
-            }
-
-            var_dump($bestDeal);
-
-
-
+            $this->calculateDiscount($POST);
         }
 
-        //load the view
+        // Load the view
         require 'View/homepage.php';
 
     }
 
     public function loadObjects()
     {
-        // set empty arrays to hold objects
+        // Set empty arrays to hold objects
         $customerObjects = [];
         $productObjects = [];
 
@@ -103,7 +59,50 @@ class HomepageController
         // Store objects in Session
         $_SESSION['customers'] = $customerObjects;
         $_SESSION['products'] = $productObjects;
+    }
+
+    public function calculateDiscount($POST) {
+
+        // getting object of chosen stuf
+        $chosenCustomer = $_SESSION["customers"][$POST["customer"]];
+        $chosenProduct =  $_SESSION["products"][$POST["products"]];
+
+        $chosenProductPrice = $chosenProduct->getPrice();
+        $chosenCustomerGroup = $chosenCustomer->getGroupsArray();
+
+        $fixedDiscount = [];
+        $variableDiscount = [];
+
+        foreach ($chosenCustomerGroup as $value){
+            if (isset($value{"fixed_discount"})) {
+                array_push($fixedDiscount, $value{"fixed_discount"});
+            }
+            if(isset($value{"variable_discount"})) {
+                array_push($variableDiscount, $value{"variable_discount"});
+            }
+        }
+        $fixedDiscount = array_sum($fixedDiscount);
+        $variableDiscount = max($variableDiscount);
+
+        var_dump($fixedDiscount);
+        var_dump($variableDiscount);
+        var_dump($chosenProductPrice);
+
+        $discountedPriceFixed = $chosenProductPrice - $fixedDiscount;
+        $discountedPriceVariable =   $chosenProductPrice - ($chosenProductPrice * ($variableDiscount / 100));
+        var_dump($discountedPriceFixed);
+        var_dump($discountedPriceVariable);
 
 
+        $bestDeal = 0;
+
+        if($discountedPriceFixed <= $discountedPriceVariable) {
+            $bestDeal = $discountedPriceFixed;
+
+        } else {
+            $bestDeal = $discountedPriceVariable;
+        }
+
+        var_dump($bestDeal);
     }
 }
