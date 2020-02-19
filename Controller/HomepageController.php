@@ -26,10 +26,31 @@ class HomepageController
                 if(isset($value{"variable_discount"})) {
                     array_push($variableDiscount, $value{"variable_discount"});
                 }
-
             }
+            $fixedDiscount = array_sum($fixedDiscount);
+            $variableDiscount = max($variableDiscount);
+
             var_dump($fixedDiscount);
             var_dump($variableDiscount);
+            var_dump($chosenProductPrice);
+
+            $discountedPriceFixed = $chosenProductPrice - $fixedDiscount;
+            $discountedPriceVariable =   $chosenProductPrice - ($chosenProductPrice * ($variableDiscount / 100));
+            var_dump($discountedPriceFixed);
+            var_dump($discountedPriceVariable);
+
+
+            $bestDeal = 0;
+
+            if($discountedPriceFixed <= $discountedPriceVariable) {
+                $bestDeal = $discountedPriceFixed;
+
+            } else {
+                $bestDeal = $discountedPriceVariable;
+            }
+
+            var_dump($bestDeal);
+
 
 
         }
