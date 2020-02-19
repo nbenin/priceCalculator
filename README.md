@@ -4,7 +4,7 @@
 
 - Making a price calculator, trying to use a nice MVC model
 
->			###The User story
+### ___ The User story
 >
 >   This 2 mans project cover the following  customer, product, the id group and the various categories of discount and best   >price to pay.
 >
