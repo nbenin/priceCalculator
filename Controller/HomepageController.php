@@ -13,8 +13,24 @@ class HomepageController
             $chosenCustomer = $_SESSION["customers"][$_POST["customer"]];
             $chosenProduct =  $_SESSION["products"][$_POST["products"]];
 
-            var_dump($chosenCustomer);
-            var_dump($chosenProduct);
+            $chosenProductPrice = $chosenProduct->getPrice();
+            $chosenCustomerGroup = $chosenCustomer->getGroupsArray();
+
+            $fixedDiscount = [];
+            $variableDiscount = [];
+
+            foreach ($chosenCustomerGroup as $value){
+                if (isset($value{"fixed_discount"})) {
+                    array_push($fixedDiscount, $value{"fixed_discount"});
+                }
+                if(isset($value{"variable_discount"})) {
+                    array_push($variableDiscount, $value{"variable_discount"});
+                }
+
+            }
+            var_dump($fixedDiscount);
+            var_dump($variableDiscount);
+
 
         }
 
