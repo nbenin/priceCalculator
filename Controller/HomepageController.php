@@ -8,7 +8,14 @@ class HomepageController
     {
         // Make customer and product depending on the GET/POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            var_dump($POST);
+
+            // getting object of chosen stuf
+            $chosenCustomer = $_SESSION["customers"][$_POST["customer"]];
+            $chosenProduct =  $_SESSION["products"][$_POST["products"]];
+
+            var_dump($chosenCustomer);
+            var_dump($chosenProduct);
+
         }
 
         //load the view
