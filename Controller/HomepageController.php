@@ -92,13 +92,11 @@ class HomepageController
         $discountedPriceVariable =   $chosenProductPrice - ($chosenProductPrice * ($variableDiscount / 100));
         var_dump($discountedPriceFixed);
         var_dump($discountedPriceVariable);
-
-
+        
         $bestDeal = 0;
 
-        if($discountedPriceFixed <= $discountedPriceVariable) {
+        if($discountedPriceFixed <= $discountedPriceVariable && $discountedPriceFixed >= 0) {
             $bestDeal = $discountedPriceFixed;
-
         } else {
             $bestDeal = $discountedPriceVariable;
         }
