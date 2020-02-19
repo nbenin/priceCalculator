@@ -8,20 +8,18 @@ class HomepageController
     {
 
         // Make customer and product depending on the GET/POST
-            var_dump($POST);
+        var_dump($POST);
 
-            //load the view
-            require 'View/homepage.php';
+        //load the view
+        require 'View/homepage.php';
 
     }
 
     public function loadObjects()
     {
-
         // set empty arrays to hold objects
         $customerObjects = [];
         $productObjects = [];
-        $groupObjects = [];
 
         // Get Json files and make objects of the right customer/product/groups
         $customerJson = json_decode(file_get_contents('jsons/customers.json'), true);
@@ -34,36 +32,34 @@ class HomepageController
         foreach ($productsJson as $product) {
             array_push($productObjects, new Product($product{'id'}, $product{'name'}, $product{'description'}, $product{'price'}));
         }
-        foreach ($groupsJson as $group) {
-            // Sorting discounts for object
-            $fixed_discount = 0;
-            $variable_discount = 0;
-            $groupId = 100;
-            if (isset($group{'fixed_discount'})) {
-                $fixed_discount = $group{'fixed_discount'};
-            } else {
-                $variable_discount = $group{'variable_discount'};
-            }
-            // Case for groups without group id
-            if (!isset($group{'group_id'})) {
-                break;
-            } else {
-                $groupId = $group{'group_id'};
-            }
-            array_push($groupObjects, new Group($group{'id'}, $group{'name'}, $variable_discount, $fixed_discount, $groupId));
-        }
-
-        $_SESSION['customers'] = $customerObjects;
-        $_SESSION['products'] = $productObjects;
-        $_SESSION['groups'] = $groupObjects;
 
         // Connect the groups to each customer
         foreach($customerObjects as $customer) {
-            foreach($groupObjects as $group) {
-                if($customer->getGroupId() === $group->getId()) {
-                    $customer->addGroup($group);
+
+            // Flags for end of chain and group #
+            $nextGroup = $customer->getGroupId();
+            $endOfList = false;
+
+            while ($endOfList === false) {
+                foreach ($groupsJson as $group) {
+                    if ($nextGroup === $group{'id'}) {
+                        $customer->addGroup($group);
+                        if(isset($group{'group_id'})) {
+                            $nextGroup = $group{'group_id'};
+                            break;
+                        } else {
+                            $endOfList = true;
+                            break;
+                        }
+                    }
                 }
             }
         }
+    var_dump($customerObjects);
+        // Store objects in Session
+        $_SESSION['customers'] = $customerObjects;
+        $_SESSION['products'] = $productObjects;
+
+
     }
 }

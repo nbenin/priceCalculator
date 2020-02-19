@@ -7,7 +7,6 @@ class Customer
     private $customerId;
     private $customerName;
     private $customerGroupId;
-    private $listNode;
     private $groupsArray = [];
 
     public function __construct(int $customerId, string $name, int $customerGroupId)
