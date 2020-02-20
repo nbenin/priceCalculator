@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- bootstrap css -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <title>Becode - Boiler plate MVC</title>
 </head>
@@ -19,10 +18,18 @@
         <?php require "includes/custprod.php"?>
     </form>
 
+<!-- Login form, not implementing
     <form method="POST">
-        <?php require 'includes/login.php' ?>
-    </form>
+        <?php /*require 'includes/login.php' */?>
+    </form>-->
+
+    <div class="container border border-dark">
+        <?php if ($_SERVER['REQUEST_METHOD'] == 'POST'){require 'includes/display.php';} ?>
+    </div>
+
     <?php require 'includes/footer.php'?>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

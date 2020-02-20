@@ -63,12 +63,9 @@ class HomepageController
 
     public function calculateDiscount($POST) {
 
-        // getting object of chosen stuf
-        $chosenCustomer = $_SESSION["customers"][$POST["customer"]];
-        $chosenProduct =  $_SESSION["products"][$POST["products"]];
-
-        $chosenProductPrice = $chosenProduct->getPrice();
-        $chosenCustomerGroup = $chosenCustomer->getGroupsArray();
+        // Getting object of chosen stuff
+        $chosenProductPrice = $_SESSION["products"][$POST["products"]]->getPrice();
+        $chosenCustomerGroup = $_SESSION["customers"][$POST["customer"]]->getGroupsArray();
 
         $fixedDiscount = [];
         $variableDiscount = [];
@@ -84,23 +81,20 @@ class HomepageController
         $fixedDiscount = array_sum($fixedDiscount);
         $variableDiscount = max($variableDiscount);
 
-        var_dump($fixedDiscount);
-        var_dump($variableDiscount);
-        var_dump($chosenProductPrice);
-
         $discountedPriceFixed = $chosenProductPrice - $fixedDiscount;
         $discountedPriceVariable =   $chosenProductPrice - ($chosenProductPrice * ($variableDiscount / 100));
-        var_dump($discountedPriceFixed);
-        var_dump($discountedPriceVariable);
-        
+
         $bestDeal = 0;
 
         if($discountedPriceFixed <= $discountedPriceVariable && $discountedPriceFixed >= 0) {
             $bestDeal = $discountedPriceFixed;
+            $discountUsed = 'You saved: &euro;' . $fixedDiscount . ' by using a fixed discount.';
         } else {
             $bestDeal = $discountedPriceVariable;
+            $discountUsed = 'You saved: %' . $variableDiscount . ' by using a variable discount.';
         }
 
-        var_dump($bestDeal);
+        $_SESSION['discountUsed'] = $discountUsed;
+        $_SESSION['bestDeal'] = $bestDeal;
     }
 }
