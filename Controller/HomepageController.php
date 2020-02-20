@@ -18,22 +18,28 @@ class HomepageController
 
     public function loadObjects()
     {
-        // Set empty arrays to hold objects
-        $customerObjects = [];
-        $productObjects = [];
-
         // Get Json files and make objects of the right customer/product/groups
-        $customerJson = json_decode(file_get_contents('jsons/customers.json'), true);
-        $productsJson = json_decode(file_get_contents('jsons/products.json'), true);
-        $groupsJson = json_decode(file_get_contents('jsons/groups.json'), true);
+        $customerJson = $this->decode('jsons/customers.json');
+        $productsJson = $this->decode('jsons/products.json');
+        $groupsJson = $this->decode('jsons/groups.json');
 
+        $customerObjects = $this->makeCustomerObjects($customerJson, $groupsJson);
+        $productObjects = $this->makeProductObjects($productsJson);
+
+        // Store objects in Session
+        $_SESSION['customers'] = $customerObjects;
+        $_SESSION['products'] = $productObjects;
+    }
+
+    private function decode($path) {
+        return json_decode(file_get_contents($path, true));
+    }
+
+    private function makeCustomerObjects($customerJson, $groupsJson) {
+        $customerObjects = [];
         foreach ($customerJson as $customers) {
             array_push($customerObjects, new Customer($customers{'id'}, $customers{'name'}, $customers{'group_id'}));
         }
-        foreach ($productsJson as $product) {
-            array_push($productObjects, new Product($product{'id'}, $product{'name'}, $product{'description'}, $product{'price'}));
-        }
-
         // Connect the groups to each customer
         foreach($customerObjects as $customer) {
 
@@ -56,12 +62,18 @@ class HomepageController
                 }
             }
         }
-        // Store objects in Session
-        $_SESSION['customers'] = $customerObjects;
-        $_SESSION['products'] = $productObjects;
+        return $customerObjects;
     }
 
-    public function calculateDiscount($POST) {
+    private function makeProductObjects($json) {
+        $productObjects = [];
+        foreach ($json as $value) {
+            array_push($productObjects, new Product($value{'id'}, $value{'name'}, $value{'description'}, $value{'price'}));
+        }
+        return $productObjects;
+    }
+
+    private function calculateDiscount($POST) {
 
         // Getting object of chosen stuff
         $chosenProductPrice = $_SESSION["products"][$POST["products"]]->getPrice();
