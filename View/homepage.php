@@ -9,12 +9,13 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <title>Becode - Boiler plate MVC</title>
+    <title>Price Calculator</title>
 </head>
 <body>
     <?php require 'includes/header.php'?>
+    <br><br>
 
-    <form method="POST">
+    <form class="text-center" method="POST">
         <?php require "includes/custprod.php"?>
     </form>
 
@@ -22,7 +23,7 @@
     <form method="POST">
         <?php /*require 'includes/login.php' */?>
     </form>-->
-
+    <br>
     <div class="container border border-dark">
         <?php if ($_SERVER['REQUEST_METHOD'] == 'POST'){require 'includes/display.php';} ?>
     </div>

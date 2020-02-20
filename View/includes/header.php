@@ -1,3 +1,3 @@
-<header>
-    <h1>Welcome to my site</h1>
+<header class="text-center">
+    <h1>Check Your Price</h1>
 </header>
