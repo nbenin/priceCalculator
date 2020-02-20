@@ -6,6 +6,11 @@ class HomepageController
     //render function with both $_GET and $_POST vars available if it would be needed.
     public function render(array $POST)
     {
+        // If no session, start one
+        if(!isset($_SESSION) || $_SERVER["REQUEST_METHOD"] == "GET") {
+            $this->loadObjects();
+        }
+
         // Make customer and product depending on the GET/POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->calculateDiscount($POST);
@@ -13,7 +18,6 @@ class HomepageController
 
         // Load the view
         require 'View/homepage.php';
-
     }
 
     public function loadObjects()
@@ -32,7 +36,7 @@ class HomepageController
     }
 
     private function decode($path) {
-        return json_decode(file_get_contents($path, true));
+        return json_decode(file_get_contents($path), true);
     }
 
     private function makeCustomerObjects($customerJson, $groupsJson) {
@@ -79,19 +83,8 @@ class HomepageController
         $chosenProductPrice = $_SESSION["products"][$POST["products"]]->getPrice();
         $chosenCustomerGroup = $_SESSION["customers"][$POST["customer"]]->getGroupsArray();
 
-        $fixedDiscount = [];
-        $variableDiscount = [];
-
-        foreach ($chosenCustomerGroup as $value){
-            if (isset($value{"fixed_discount"})) {
-                array_push($fixedDiscount, $value{"fixed_discount"});
-            }
-            if(isset($value{"variable_discount"})) {
-                array_push($variableDiscount, $value{"variable_discount"});
-            }
-        }
-        $fixedDiscount = array_sum($fixedDiscount);
-        $variableDiscount = max($variableDiscount);
+        $fixedDiscount = $this->calculateFixedDiscount($chosenCustomerGroup);
+        $variableDiscount = $this->calculateVariableDiscount($chosenCustomerGroup);
 
         $discountedPriceFixed = $chosenProductPrice - $fixedDiscount;
         $discountedPriceVariable =   $chosenProductPrice - ($chosenProductPrice * ($variableDiscount / 100));
@@ -108,5 +101,24 @@ class HomepageController
 
         $_SESSION['discountUsed'] = $discountUsed;
         $_SESSION['bestDeal'] = $bestDeal;
+    }
+
+    private function calculateFixedDiscount($customerGroup) {
+        $fixedDiscount = [];
+        foreach ($customerGroup as $value){
+            if (isset($value{"fixed_discount"})) {
+                array_push($fixedDiscount, $value{"fixed_discount"});
+            }
+        }
+        return array_sum($fixedDiscount);
+    }
+    private function calculateVariableDiscount($customerGroup) {
+        $variableDiscount = [];
+        foreach ($customerGroup as $value) {
+            if(isset($value{"variable_discount"})) {
+                array_push($variableDiscount, $value{"variable_discount"});
+            }
+        }
+        return max($variableDiscount);
     }
 }

@@ -9,8 +9,4 @@ require 'Controller/HomepageController.php';
 session_start();
 
 $controller = new HomepageController();
-
-if(!isset($_SESSION) || $_SERVER["REQUEST_METHOD"] == "GET") {
-    $controller->loadObjects();
-}
 $controller->render($_POST);
