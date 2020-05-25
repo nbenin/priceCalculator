@@ -2,7 +2,11 @@
 
 - Working together with [Victor](https://github.com/Victor-28)
 
-- Making a price calculator, trying to use a nice MVC model
+- Making a price calculator
+
+- Getting familiar with MVC concepts
+
+- Practicing Agile/Scrum methodologies in a small group
 
 ### ______________________________ The User story ______________________________
 >
